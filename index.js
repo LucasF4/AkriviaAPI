@@ -72,11 +72,12 @@ app.post(routerDefault + '/login', async (req, res) => {
             const token = jwt.sign(
                 {
                     username: conf[0].username,
-                    email: conf[0].email
+                    email: conf[0].email,
+                    funcao: conf[0].funcao
                 },
                 process.env.SECRET,
                 {
-                    expiresIn: "120s"
+                    expiresIn: "86400s"
                 }
             )
             res.status(201).json({msg: "Usuário logado com sucesso", token})
