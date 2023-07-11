@@ -60,20 +60,24 @@ app.get(routerDefault + '/download', authenticator, async (req, res) => {
     )
 })
 
+app.get(routerDefault + '/verify', authenticator, (req, res) => {
+    res.json({msg: 'Valid'})
+})
+
 app.post(routerDefault + '/login', async (req, res) => {
     var { email, senha } = req.body
 
-    var conf = await knex('tb_users').select().where({email: email})
+    var conf = await knex.raw(`SELECT * FROM tb_users tu LEFT JOIN tb_funcoes tf ON tu.idfuncao = tf.idfuncao WHERE tu.email = '${email}'`)
 
-    if(conf[0] != undefined){
-        var correct = bcrypt.compareSync(senha, conf[0].senha)
+    if(conf.rows[0] != undefined){
+        var correct = bcrypt.compareSync(senha, conf.rows[0].senha)
         console.log(correct)
         if(correct){
             const token = jwt.sign(
                 {
-                    username: conf[0].username,
-                    email: conf[0].email,
-                    funcao: conf[0].funcao
+                    username: conf.rows[0].username,
+                    email: conf.rows[0].email,
+                    funcao: conf.rows[0].funcao
                 },
                 process.env.SECRET,
                 {

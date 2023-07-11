@@ -14,14 +14,14 @@
     <main>
         <div class="login-container" id="login-container">
             <div class="form-container">
-                <form action="#" class="form form-login">
+                <form action="/login" method="post" class="form form-login">
                     <h2 class="form-title">Entrar com</h2>
                     <div class="form-inputs-container">
-                        <input type="text" class="form-input" placeholder="E-mail">
-                        <input type="text" class="form-input" placeholder="Password">
+                        <input name="email" type="text" class="form-input" placeholder="E-mail">
+                        <input name="senha" type="text" class="form-input" placeholder="Password">
                     </div>
                     <a href="#" class="form-link">Esqueceu sua senha?</a>
-                    <button class="form-button">Entrar</button>
+                    <button type="submit" class="form-button">Entrar</button>
                 </form>
                 <form action="#" class="form form-register">
                     <h2 class="form-title">Crie sua Conta</h2>
