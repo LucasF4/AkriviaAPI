@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href='/src/css/reset.css'>
+    <link rel="stylesheet" href="/src/css/colors.css">
+    <link rel="stylesheet" href="/src/css/main.css">
+    <link rel="stylesheet" href="/src/css/login-container.css">
+    <link rel="stylesheet" href="/src/css/overlay.css">
+</head>
+<body>
+    
+    <main>
+        <div class="login-container" id="login-container">
+            <div class="form-container">
+                <form action="/login" method="post" class="form form-login">
+                    <h2 class="form-title">Entrar com</h2>
+                    <% if(erro){ %><div style="color: red; text-align: center;"><%= erro %></div> <% } %>
+                    <% if(success){ %><div style="color: green; text-align: center;"><%= success %></div> <% } %>
+                    <div class="form-inputs-container">
+                        <input name="email" type="text" class="form-input" placeholder="E-mail">
+                        <input name="senha" type="password" class="form-input" placeholder="Password">
+                    </div>
+                    <a href="#" class="form-link">Esqueceu sua senha?</a>
+                    <button type="submit" class="form-button">Entrar</button>
+                </form>
+                <form action="/cadastro" method="POST" class="form form-register">
+                    <h2 class="form-title">Crie sua Conta</h2>
+                    <div class="form-inputs-container">
+                        <input name="email" type="text" class="form-input" placeholder="E-mail">
+                        <input id="senha" name="senha" type="password" class="form-input" placeholder="Password">
+                        <!-- <input id="confirmSenha" type="password" class="form-input" placeholder="Confirm Password"> -->
+                        <input name="username" type="text" class="form-input" placeholder="Username">
+                    </div>
+                    <button type="submit" class="form-button">Cadastrar</button>
+                </form>
+            </div>
+            <div class="overlay">
+                <div class="overlay-container">
+                    <div class="overlay-container">
+                        <h2 class="form-title form-title-white">Já tem conta?</h2>
+                        <p class="form-text">Para entrar na nossa plataforma, faça login!</p>
+                        <button class="form-button form-button-white" id="open-login">Login</button>
+                    </div>
+                </div>
+                <div class="overlay-container">
+                    <h2 class="form-title form-title-white">Bem-Vindo!</h2>
+                    <p class="form-text">Cadastre-se e comece a utilizar nossa plataforma</p>
+                    <button class="form-button form-button-white" id="open-register">Cadastre-se</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script defer>
+
+        const loginContainer = document.getElementById("login-container")
+
+        const toggleMove = () => loginContainer.classList.toggle('toggle')
+
+        document.getElementById('open-register').addEventListener('click', toggleMove)
+        document.getElementById('open-login').addEventListener('click', toggleMove)
+
+        /* document.getElementById('confirmSenha').addEventListener('keyup', () =>{
+            if(document.getElementById('senha').value != document.getElementById('confirmSenha').value){
+                document.getElementById('confirmSenha').style.border = "red"
+            }else{
+                document.getElementById('confirmSenha').style.background = "var(--color-input)"
+            }
+        }) */
+
+    </script>
+</body>
+</html>

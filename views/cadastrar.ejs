@@ -16,33 +16,32 @@
 </head>
 <body>
     
-    <form action="/login" method="POST">
+    <form action="/cadastro" method="POST">
         <div class="main-login">
 
             <div class="left-login">
-                <h2>Boas Vindas<br>Realize seu Login</h2>
+                <h2>Boas Vindas<br>Cadastre seu Usuário</h2>
                 <img id="svg" class="left-login-svg" src="" />
             </div>
             <div class="right-login">
                 
                 <div class="card-login">
                     <img class="img-login" src="/src/images/app/AKRIVIA-QUADRADO-Fundo.png" alt="">
-                    <h1>LOGIN</h1>
-                    <% if(erro){ %><div style="color: red; text-align: center; margin: 0 15px;"><%= erro %></div> <% } %>
-                    <% if(success){ %><div style="color: green; text-align: center; margin: 0 15px;"><%= success %></div> <% } %>
+                    <h1>CADASTRE-SE</h1>
                     <div class="text-field">
                         <label for="usuario">E-mail</label>
-                        <input type="email" name="email" placeholder="E-mail" value="<%= email %>" required/>
+                        <input type="email" name="email" placeholder="E-mail" required/>
                     </div>
                     <div class="text-field">
                         <label for="senha">Senha</label>
                         <input type="password" name="senha" placeholder="Senha" required/>
-                    </div>    
-                    <div class="text-under">
-                        <a href="#"><span>Esqueceu sua senha?</span></a>
                     </div>
-                    <button type="submit" class="btn-login">Login</button>
-                    <button type="button" class="btn-login" onclick="location.href='/cadastrar'">Cadastre-se</button>
+                    <div class="text-field">
+                        <label for="senha">Nome do Usuário</label>
+                        <input type="text" name="username" placeholder="username" required/>
+                    </div>
+                    <button type="submit" class="btn-login">Cadastrar</button>
+                    <button type="button" class="btn-login" onclick="location.href='/'">Voltar</button>
                 </div>
             </div>
     

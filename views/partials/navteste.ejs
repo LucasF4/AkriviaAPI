@@ -1,0 +1,45 @@
+<div class="diff"></div>
+<aside>
+    <div class="top">
+        <div class="logo">
+            <img src="/src/images/app/AKRIVIA-QUADRADO-Fundo.png" >
+            <h2><span class="danger">Tecnologia</span></h2>
+        </div>
+        <div class="close" id="close-btn">
+            <span class="material-icons-sharp">close</span>
+        </div>
+    </div>
+
+    <div id="sidebar" class="sidebar">
+        <a id="dashboard" href="/">
+            <span class="material-icons-sharp">grid_view</span>
+            <h3>Dashboard</h3>
+        </a>
+        <% if(acesso == 'DEV' || acesso == 'CEO' || acesso == 'ADMIN' || acesso == 'RH'){ %>
+            <a id="curriculos" href="/curriculos">
+                <span class="material-icons-sharp">description</span>
+                <h3>Currículos</h3>
+            </a>
+        <% } %>
+        <div><h3 class="relat">Boletos</h3></div>
+        <a id="gerar-boleto" href="/gerar-boleto">
+            <span class="material-icons-sharp">paid</span>
+            <h3>Gerar Boletos</h3>
+        </a>
+        <% if(acesso == 'DEV' || acesso == 'CEO' || acesso == 'ADMIN'){ %>
+            <div><h3 class="relat">Administrativo</h3></div>
+            <a id="users" href="/users">
+                <span class="material-icons-sharp">person</span>
+                <h3>Usuários</h3>
+            </a>
+        <% } %>
+        <a href="/logout">
+            <span class="material-icons-sharp">logout</span>
+            <h3>Logout</h3>
+        </a>
+
+    </div>
+
+</aside>
+
+<script src="/src/js/jsnavbar.js"></script>

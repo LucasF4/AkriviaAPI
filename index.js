@@ -11,8 +11,11 @@ const session = require('express-session')
 const bcrypt = require('bcrypt')
 const authenticator = require('./middleware/authenticator')
 const upload = require('./middleware/upload')
+const uploads = require('./middleware/uploadCurriculo')
 const fs = require('fs')
 const path = require('path')
+
+const flash = require('express-flash')
 
 const cors = require('cors')
 
@@ -24,9 +27,11 @@ app.use(session({
         secret: process.env.SECRET,
         resave: false,
         saveUninitialized: true,
-        cookie: {maxAge: 360000}
+        cookie: {maxAge: 3600000}
     })
 )
+
+app.use(flash())
 
 app.use(express.static(__dirname + '/public'))
 app.set('views', path.join(__dirname + '/views'))
@@ -36,9 +41,10 @@ app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({extended: true, limit: 1024*1024*20}))
 app.use(bodyParser.json({extended: true, limit: 1024*1024*20}))
 
+app.use(cors())
+
 app.use('/', userController)
 
-app.use(cors())
 
 /* ROTA RESPONSÁVEL POR TRANSFORMAR OS ARQUIVOS SALVOS NO SERVIDOR EM BASE64 */
 /* app.get('/file', authenticator, async(req, res) => {
@@ -115,7 +121,37 @@ app.post(routerDefault + '/cadastrar', async (req, res) => {
     }
 })
 
+app.post(routerDefault + '/curriculo', uploads.single('foto'), async(req, res) => {
+    var { nome, phone, email, rg, cpf, sexo, escolaridade, cep, bairro, uf } = req.body
+    var pdf = req.file
+
+    if(
+        pdf == undefined  || pdf.length == 0 ||
+        nome == undefined || nome.length == 0 ||
+        email == undefined || email.length == 0
+    ){
+        return res.json({msg: 'File not Found!'})
+    }
+    
+    pdf = pdf.path.replace('public', '')
+    
+    console.log(pdf)
+
+    await knex.raw(`
+        INSERT INTO trabalhe_conosco
+        VALUES
+        ('${pdf}', '${nome}', '${phone}', ${rg}, '${cpf}', '${sexo}', '${escolaridade}', ${cep}, '${bairro}', '${uf}')
+    `).then(() => {
+        res.status(201).json({msg: "Currículo cadastrado com sucesso"})
+    })
+    .catch( e => {
+        console.log(e)
+        res.status(400).json({msg: "Ocorreu um erro no cadastro do currículo!"})
+    })
+
+})
 
 app.listen(PORT, () => {
+    console.log(__dirname)
     console.log('Servidor rodando na porta: ' + PORT)
 })

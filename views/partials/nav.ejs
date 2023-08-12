@@ -1,0 +1,40 @@
+<nav class="sidebar">
+    <header>
+        <div class="image-text">
+            <span class="image">
+                <img src="/src/images/app/AKRIVIA-QUADRADO-Fundo.png" alt="logo">
+            </span>
+            <div class="text header-text">
+                <span class="name"><%= username %></span>
+            </div>
+        </div>
+    </header>
+
+    <div class="menu-bar">
+        <div class="menu">
+            <ul class="menu-links">
+                <li class="nav-link">
+                    <a href="/">
+                        <i class="fa-solid fa-ticket icon"></i>
+                        <span class="text nav-text">Gerar Boleto</span>
+                    </a>
+                </li>
+                <% if(acesso == 'DEV' || acesso == 'CEO'){ %>
+                    <li class="nav-link">
+                        <a href="/users">
+                            <i class="fa-solid fa-user icon"></i>
+                            <span class="text nav-text">Usuários</span>
+                        </a>
+                    </li>
+                <% } %>
+                <li class="nav-link">
+                    <a href="/logout">
+                        <i class="fa-solid fa-right-from-bracket icon"></i>
+                        <span class="text nav-text">Sair</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</nav>

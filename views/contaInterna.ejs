@@ -1,0 +1,199 @@
+<%- include('./partials/head2.ejs') %>
+
+<style>
+
+    .container2 main form{
+        background: var(--color-white);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--box-shadow);
+        padding: var(--card-padding);
+    }
+
+    .container2 main form input,
+    .container2 main form select{
+        border: 1px solid lightblue;
+        padding: .5rem;
+    }
+</style>
+
+<body>
+
+    <div class="container2">
+        <%- include('./partials/navteste.ejs') %>
+
+        <main>
+            <%- include('./partials/rightmenu.ejs') %>
+            <h2>Gerar Boletos</h2>
+            <br>
+            <form method="POST" action="/boleto">
+                <div style="display: flex; flex-direction: column; justify-content: space-evenly; align-items: center;">
+                    <h3 style="margin-top: 15px;">Beneficiário</h3>
+                    <div class="forms" style="display: flex; justify-content: space-between; flex-wrap: wrap; width: 80%;">
+                        <div>
+                            <label for="cep">CEP:</label><br>
+                            <input maxlength="18" name="cep" type="text" onkeypress="$(this).mask('##.###-###', {reverse: true})">
+                        </div>
+                        <div>
+                            <label for="cidade">Nome do Beneficiário:</label><br>
+                            <input name="cidade" type="text">
+                        </div>
+                        <div>
+                            <label for="nomeBeneficiario">Logradouro:</label><br>
+                            <input name="nomeBeneficiario" type="text">
+                        </div>
+                        <div>
+                            <label for="cidade">Cidade:</label><br>
+                            <input name="cidade" type="text">
+                        </div>
+                        <div>
+                            <label for="numero">Número:</label><br>
+                            <input name="numero" type="text">
+                        </div>
+                        <div>
+                            <label for="uf">UF:</label><br>
+                            <input name="uf" type="text">
+                        </div>
+                        <div>
+                            <label>Tipo de Pessoa: </label><br>
+                            <select name="">
+                                <option value="1">Pessoa Física</option>
+                                <option value="2">Pessoa Jurídica</option>
+                            </select>
+                        </div>
+                    </div>
+                    <h3 style="margin-top: 15px;">Pagador</h3>
+                    <div class="forms" style="display: flex; justify-content: space-between; flex-wrap: wrap; width: 80%;">
+                        <div>
+                            <label for="cep">CEP:</label><br>
+                            <input maxlength="18" name="cep" type="text" onkeypress="$(this).mask('##.###.###/####-##', {reverse: true})">
+                        </div>
+                        <div>
+                            <label for="cidade">Nome do Beneficiário:</label><br>
+                            <input name="cidade" type="text">
+                        </div>
+                        <div>
+                            <label for="nomeBeneficiario">Logradouro:</label><br>
+                            <input name="nomeBeneficiario" type="text">
+                        </div>
+                        <div>
+                            <label for="cidade">Cidade:</label><br>
+                            <input name="cidade" type="text">
+                        </div>
+                        <div>
+                            <label for="numero">Número:</label><br>
+                            <input name="numero" type="text">
+                        </div>
+                        <div>
+                            <label for="uf">UF:</label><br>
+                            <input name="uf" type="text">
+                        </div>
+                        <div>
+                            <label>Tipo de Pessoa: </label><br>
+                            <select name="">
+                                <option value="1">Pessoa Física</option>
+                                <option value="2">Pessoa Jurídica</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin-top: 15px">Informações Adicionais</h3>
+                    <div class="forms" style="display: flex; justify-content: space-between; flex-wrap: wrap; width: 80%;">
+                        <div>
+                            <label for="uf">Código do Beneficiário:</label><br>
+                            <input name="uf" type="text">
+                        </div>
+                        <div>
+                            <label for="uf">Data de Vencimento:</label><br>
+                            <input name="uf" type="text">
+                        </div>
+                        <div>
+                            <label for="uf">Espécie do Documento:</label><br>
+                            <input name="uf" type="text">
+                        </div>
+                        <div>
+                            <label for="uf">Tipo de Conta:</label><br>
+                            <input name="uf" type="text">
+                        </div>
+                        <div>
+                            <label for="uf">Nosso Número:</label><br>
+                            <input name="uf" type="text">
+                        </div>
+                        <div>
+                            <label for="uf">Seu Número:</label><br>
+                            <input name="uf" type="text">
+                        </div>
+                        <div>
+                            <label for="uf">Valor:</label><br>
+                            <input name="uf" type="text" onkeypress="$(this).mask('#.##0,00', {reverse: true})">
+                        </div>
+                    </div>
+                    <h3 style="margin-top: 15px">Descontos</h3>
+                    <div class="forms" style="display: flex; justify-content: space-between; flex-wrap: wrap; width: 80%;">
+                        <div>
+                            <label for="uf">Tipo de Desconto:</label><br>
+                            <input name="uf" type="text">
+                        </div>
+                        <div>
+                            <label for="uf">Valor do Desconto 1:</label><br>
+                            <input name="uf" type="text" onkeydown="$(this).mask('#.##0,00', {reverse: true})">
+                        </div>
+                        <div>
+                            <label for="uf">Data Desconto 1:</label><br>
+                            <input name="uf" type="date">
+                        </div>
+                        <div>
+                            <label for="uf">Valor do Desconto 2:</label><br>
+                            <input name="uf" type="text" onkeydown="$(this).mask('#.##0,00', {reverse: true})">
+                        </div>
+                        <div>
+                            <label for="uf">Data Desconto 2:</label><br>
+                            <input name="uf" type="date">
+                        </div>
+                        <div>
+                            <label for="uf">Valor do Desconto 3:</label><br>
+                            <input name="uf" type="text" onkeydown="$(this).mask('#.##0,00', {reverse: true})">
+                        </div>
+                        <div>
+                            <label for="uf">Data Desconto 3:</label><br>
+                            <input name="uf" type="date">
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top: 15px">Juros</h3>
+                    <div class="forms" style="display: flex; justify-content: space-between; flex-wrap: wrap; width: 80%;">
+                        <div>
+                            <label for="uf">Tipo de Juros:</label><br>
+                            <input name="uf" type="text">
+                        </div>
+                        <div>
+                            <label for="uf">Juros:</label><br>
+                            <input name="uf" type="text">
+                        </div>
+                        <div>
+                            <label for="uf">Multa:</label><br>
+                            <input name="uf" type="text">
+                        </div>
+                        <div>
+                            <textarea placeholder="Informativos" style="border: 1px solid lightblue; padding: 2px;" name="obs" id="observacoes" cols="60" rows="5"></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <button type="submit" style="cursor: pointer; width: 25%; margin: 0 35%; margin-top: 3rem; background: rgb(35, 183, 229); color:white; padding: 10px; border-radius: .6rem; ">Gerar Boleto</button>
+                </div>
+            </form>
+        </main>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script src="/src/js/script.js"></script>
+    <!-- <script>
+
+        var filtroTeclas = function(event) {
+            return ((event.charCode >= 48 && event.charCode <= 57))
+        }
+
+    </script> -->
+</body>
+</html>

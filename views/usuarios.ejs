@@ -1,0 +1,266 @@
+<%- include('./partials/head2.ejs') %>
+<style>
+    input{
+        border: 1px solid lightblue;
+        padding: .5rem;
+    }
+
+    .container2 main form{
+        margin: 10px 0;
+        background: var(--color-white);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--box-shadow);
+        padding: 2.5rem;
+        transition: all 300ms ease;
+    }
+
+    .container2 main form:hover{
+        box-shadow: none;
+    }
+
+    .container2 main form .values{
+        display: flex;
+        justify-content: space-around;
+        border-bottom: 1px solid var(--color-light);
+        padding: 1rem;
+    }
+
+    .container2 main form input,
+    .container2 main form select{
+        border: 1px solid lightblue;
+        padding: .5rem;
+    }
+
+    .container2 main form div > h2{
+        display: inline-block;
+    }
+
+    .container2 main .fisrt-form div > h2:first-child{
+        color: red;
+    }
+
+    .container2 main .fisrt-form div div:last-child h2{
+        color: black;
+    }
+
+    .container2 main .second-form div:nth-child(2) > h2:first-child,
+    .container2 main .second-form div:nth-child(1) > h2:first-child{
+        color: red;
+    }
+
+    .container2 main .second-form div div:last-child h2{
+        color: orange;
+    }
+
+    .container2 main .fisrt-form .document div input{
+        margin: 10px 0;
+        width: 35vw;
+    }
+
+    .container2 main .second-form .document div input{
+        margin: 10px 0;
+        width: 25vw;
+    }
+
+    .container2 main form .document div select{
+        margin: 10px 0;
+        width: 20vw;
+    }
+    
+    @media (max-width: 1863px) {
+        .container2 main .fisrt-form .document div input{
+            width: 25vw;
+        }
+    }
+
+    @media (max-width: 845px) {
+        .container2 main .fisrt-form .document div input{
+            width: 23vw;
+        }
+    }
+
+    @media (max-width: 768px){
+        .container2{
+            width: 100%;
+            grid-template-columns: 1fr;
+        }
+        .container2 main form{
+            display: block;
+        }
+    }
+</style>
+<body>
+    <div class="container2">
+        <%- include('./partials/navteste.ejs') %>
+
+        <main>
+            <%- include('./partials/rightmenu.ejs') %>
+            <h2>Usuários</h2>
+            <br>
+            <div class="orders">
+                <table>
+                    <thead>
+                      <tr>
+                        <th>Nome do Usuário</th>
+                        <th>Email do Usuário</th>
+                        <th>Acesso</th>
+                        <th>Cadastrado como</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% users.forEach(function(user){ %>
+                            <tr>
+                                <td><%= user.username %></td>
+                                <td><%= user.email %></td>
+                                 <% if(user.accountverify == false){ %> 
+                                    <td>
+                                        <a href="/authorized/true/?uuid=<%= user.id %>" style="font-weight: 600; background-color: green; color: white; padding: 10px; border: none; text-decoration: none;">Permitir Usuário</a>
+                                    </td>
+                                <% } else {%>
+                                    <td><a href="/authorized/false/?uuid=<%= user.id %>" style="font-weight: 600; background-color: red; color: white; padding: 10px; border: none; text-decoration: none;">Bloquear Usuário</a></td>
+                                <% } %>
+                                <td><%= user.funcao %></td>
+                                <td><button onclick="edit(
+                                    '<%= user.id %>', 
+                                    '<%= user.idfuncao %>', 
+                                    '<%= user.username %>', 
+                                    '<%= user.nomefantasia %>',
+                                    '<%= user.cnpj %>',
+                                    '<%= user.mcc %>',
+                                    '<%= user.rg %>',
+                                    '<%= user.cpf %>',
+                                    '<%= user.datanascimento %>',
+                                    '<%= user.celular %>',
+                                    '<%= user.razaosocial %>'
+                                    )" style="font-weight: 600; background-color: orange; color: white; padding: 10px; border: none;">Editar Usuário</button></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+                <div style="display: none; margin-top: 2rem;" id="info-user">
+                    
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script>
+        $('document').ready(() => {
+            $('table').DataTable({
+                responsive: true
+            })
+        })
+
+        function consultaCNPJ(){
+            const cnpj = document.getElementById('cnpj').value
+            console.log(document.getElementById('fantasia').value.length + ' / ' + document.getElementById('razaosocial').value.length)
+            if(cnpj.length == 18 && (document.getElementById('fantasia').value.length == 0 || document.getElementById('razaosocial').value.length == 0)){
+                let cnpjReplace = cnpj.replaceAll('.', '').replaceAll('/', '').replaceAll('-', '')
+                console.log(cnpjReplace)
+                $.ajax({
+                    url: 'https://www.receitaws.com.br/v1/cnpj/' + cnpjReplace,
+                    method: 'GET',
+                    dataType: 'jsonp',
+                    complete: (xhr) => {
+                        response = xhr.responseJSON;
+                        if(response != undefined){
+                            if(response.status == 'OK'){
+                                document.getElementById('paragrafo').innerHTML = ''
+                                document.getElementById('fantasia').value = response.fantasia
+                                document.getElementById('razaosocial').value = response.nome
+                            }else{
+                                document.getElementById('paragrafo').innerHTML = 'CNPJ Inválido'
+                            }
+                        }else{
+                            document.getElementById('paragrafo').innerHTML = 'Aguarde 1 minuto para utilizar essa função.'
+                        }
+                    }
+                })
+                
+            }else if(cnpj.length == 18 && (document.getElementById('fantasia').value.length > 0 || document.getElementById('razaosocial').value.length > 0)){
+                document.getElementById('paragrafo').innerHTML = 'Os campos Nome Fantasia e Razão Social<br>devem estar vazios.'
+            }
+            
+        }
+
+        function edit(userid, funcao, username, nome_fantasia, cnpj, mcc, rg, cpf, nascimento, celular, razaoSocial){
+            
+            const infoUser = document.getElementById('info-user')
+            infoUser.innerHTML = `
+                <h3>Usuário a ser Editado: ${username}</h3><br>
+                <form action="/edit/${userid}" method="POST">
+                    <div style="display: flex; justify-content: space-around; align-items: center;">
+                        <div>
+                            <label>Tipo de Pessoa</label><br>
+                            <select style="width: 7vw; background-color: var(--color-lig);" name="tipoPessoa" id="person">
+                                <option data-person="1" value="Pessoa Física">Pessoa Física</option>
+                                <option data-person="2" value="Pessoa Jurídica">Pessoa Jurídica</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Função</label><br>
+                            <select style="width: 7vw;" name="funcao" id="funcao-user">
+                                <% funcoes.forEach(function(fun){ %>
+                                    <option value="<%= fun.idfuncao %>"><%= fun.funcao %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="document" style="padding: 20px; gap: 1rem; display: flex; flex-wrap: wrap; align-items: end; justify-content: space-evenly;">
+                        
+                    <div>
+                        <label>CNPJ</label><br><p id="paragrafo" style="color: red; font-weight: bold;"></p>
+                        <input name="cnpj" id="cnpj" maxlength="18" style="width: 10vw;" placeholder="00.000.000/0000-00" type="text" onkeyup="$(this).mask('##.###.###/####-##'); consultaCNPJ()">
+                    </div>
+                    <div>
+                        <label>Nome Fantasia</label><br>
+                        <input name="nomeFantasia" id="fantasia" type="text" style="width: 20vw;"/>
+                    </div>
+                    <div>
+                        <label>Razão Social</label><br>
+                        <input name="razaoSocial" id="razaosocial" type="text" style="width: 20vw;" />
+                    </div>
+                    <div>
+                        <label>MCC</label><br>
+                        <input id="mcc" name="mcc" style="width: 10vw;" type="text">
+                    </div>
+                    <div>
+                        <label>RG</label><br>
+                        <input id="rg" name="rg" style="width: 15vw;" type="text" />
+                    </div>
+                    <div id="documentacao">
+                        <label>CPF</label><br>
+                        <input id="cpf" name="cpf" maxlength="14" placeholder="000.000.000-00" type="text" onkeypress="$(this).mask('###.###.###-##')">
+                    </div>
+                    <div>
+                        <label>Data Nascimento</label><br>
+                        <input id="dataNascimento" name="dataNascimento" maxlength="10" style="width: 7vw;" type="text" onkeyup="$(this).mask('##/##/####')">
+                    </div>
+                    <div>
+                        <label>Celular</label><br>
+                        <input id="celular" name="celular" type="text" maxlength="15" style="width: 11.5vw;" placeholder="(00) 00000-0000" onkeypress="$(this).mask('(##) #####-####')">
+                    </div>
+                </div>
+                <div>
+                    <button style="cursor: pointer; width: 25%; margin: 0 35%; margin-top: 3rem; background: rgb(35, 183, 229); color:white; padding: 10px; border-radius: .6rem;" type="submit">Enviar</button>
+                </div>
+                </form>
+            `
+            
+            infoUser.style.display = "block";
+            document.getElementById('funcao-user').value = funcao
+            document.getElementById('fantasia').value = nome_fantasia == '' || nome_fantasia == undefined ? '' : nome_fantasia
+            document.getElementById('razaosocial').value = razaoSocial == '' || razaoSocial == undefined ? '' : razaoSocial
+            document.getElementById('cnpj').value = cnpj == '' || cnpj == undefined ? '' : cnpj
+            document.getElementById('mcc').value = mcc == '' || mcc == undefined ? '' : mcc
+            document.getElementById('rg').value = rg == '' || rg == undefined ? '' : rg
+            document.getElementById('cpf').value = cpf == '' || cpf == undefined ? '' : cpf
+            document.getElementById('dataNascimento').value = nascimento == '' || nascimento == undefined ? '' : nascimento
+            document.getElementById('celular').value = celular == '' || celular == undefined ? '' : celular
+        }
+    </script>
+</body>
+</html>

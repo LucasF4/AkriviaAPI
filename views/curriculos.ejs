@@ -1,0 +1,48 @@
+<%- include('./partials/head2.ejs') %>
+
+<body>
+    
+    <div class="container2">
+        <%- include('./partials/navteste.ejs') %>
+        <main>
+            <%- include('./partials/rightmenu.ejs') %>
+            <h2>Curriculos</h2>
+            <br>
+            <% if(curriculos[0] != null || curriculos[0] != undefined){ %>
+                <div class="orders">
+                    <table>
+                        <thead>
+                          <tr>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Contato</th>
+                            <th>Currículo</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <% curriculos.forEach(function(curriculo){ %>
+                                <tr>
+                                    <td><%= curriculo.nome %></td>
+                                    <td><%= curriculo.email %></td>
+                                    <td><%= curriculo.phone %></td>
+                                    <td>
+                                        <button>
+                                            <span class="material-icons-sharp">download</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            <% }else{ %>
+                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 80vh;">
+                    <img style="width: 50rem;" src="/src/images/app/produtoempty.jpg" alt="">
+                    <h1>Nenhum Currículo Encontrado!</h1>
+                </div>
+            <% } %>
+        </main>
+    </div>
+
+</body>
+</html>

@@ -1,5 +1,106 @@
 <%- include('./partials/head.ejs') %>
+<style>
+    .inputs div{
+        display: flex;
+        flex-direction: column;
+        margin: 10px 10px;
+    }
+</style>
 <body>
-    <h1>teste</h1>
+    <main style="display: flex; flex-direction: row; justify-content: center;">
+        <%- include('./partials/nav.ejs') %>
+        <div style="width: 50%;">
+            <form action="/boleto" method="POST">
+                <div style="background-color: antiquewhite; padding: 15px;">
+                    <h2>Dados do Beneficiário</h2>
+                    <hr>
+                    <div>
+                        <label>CEP</label>
+                        <input type="text">
+                    </div>
+                    <div class="inputs" style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                        <div>
+                            <label>Cidade</label>
+                            <input type="text">
+                        </div>
+                        <div>
+                            <label>Logradouro</label>
+                            <input type="text">
+                        </div>
+                        <div>
+                            <label>Número</label>
+                            <input type="text">
+                        </div>
+                        <div>
+                            <label>UF</label>
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div class="inputs" style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                        <div>
+                            <label>Tipo de Pessoa: </label>
+                            <select name="">
+                                <option value="1">Pessoa Física</option>
+                                <option value="2">Pessoa Jurídica</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Nome Completo</label>
+                            <input type="text">
+                        </div>
+                        <div>
+                            <label>Documento</label>
+                            <input type="text">
+                        </div>
+                    </div>
+                </div>
+                <div style="background-color: antiquewhite; padding: 15px;">
+                    <h2>Dados do Pagador</h2>
+                    <hr>
+                    <div>
+                        <label>CEP</label>
+                        <input type="text">
+                    </div>
+                    <div class="inputs" style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                        <div>
+                            <label>Cidade</label>
+                            <input type="text">
+                        </div>
+                        <div>
+                            <label>Logradouro</label>
+                            <input type="text">
+                        </div>
+                        <div>
+                            <label>Número</label>
+                            <input type="text">
+                        </div>
+                        <div>
+                            <label>UF</label>
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div class="inputs" style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                        <div>
+                            <label>Tipo de Pessoa: </label>
+                            <select name="">
+                                <option value="1">Pessoa Física</option>
+                                <option value="2">Pessoa Jurídica</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Nome Completo</label>
+                            <input type="text">
+                        </div>
+                        <div>
+                            <label>Documento</label>
+                            <input type="text">
+                        </div>
+                    </div>
+                </div>
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+    </main>
+    
 </body>
 </html>

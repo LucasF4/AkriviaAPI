@@ -1,0 +1,185 @@
+<%- include('./partials/head2.ejs') %>
+<style>
+    .info2{
+        display: flex;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    .button{
+        background: rgb(35, 183, 229);
+        color:white;
+        padding: 10px;
+        border-radius: .6rem;
+    }
+
+    .info-profile{
+        display: grid;
+        grid-template-columns: 10rem 43.6rem 30rem auto;
+    }
+    
+    @media (max-width: 1600px){
+        .info-profile{
+            display: flex;
+            gap: 3rem;
+        }
+    }
+</style>
+<body>
+    <div class="container2">
+        <%- include('./partials/navteste.ejs') %>
+        <main>
+            <%- include('./partials/rightmenu.ejs') %>
+    
+            <h1>Informações da Conta</h1>
+
+            <div class="orders">
+                <h2>Sobre</h2>
+                <div class="personal-image info-profile">
+                    <div style="content: '';"></div>
+                    <div>
+                        <div class="info2">
+                            <h3>Empresa:</h3><p>128</p>
+                        </div>
+                        <div class="info2">
+                            <h3>Nome Fantasia:</h3><p><%= nomeFantasia %></p>
+                        </div>
+                        <div class="info2">
+                            <h3>Documento:</h3><p><%= cnpj %></p>
+                        </div>
+                        <div class="info2">
+                            <h3>MCC:</h3><p><%= mcc %></p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="info2">
+                            <h3>Preposto:</h3><p><%= username %></p>
+                        </div>
+                        <div class="info2">
+                            <h3>Status:</h3><p>Ativo</p>
+                        </div>
+                        <div class="info2">
+                            <h3>Data Cadastro:</h3><p><%= dataCadastro %></p>
+                        </div>
+                    </div>
+                    <label class="label">
+                        <input type="file" name="foto" id="fileFoto" accept=".jpg, .png"/>
+                        <figure class="personal-figure">
+                            <img src="/src/images/app/iconUser.jpg" id="imagemm" class="personal-avatar" alt="avatar">
+                            <br>
+                            <div id="button"></div>
+                            <figcaption class="personal-figcaption">
+                                <img
+                                    src="https://raw.githubusercontent.com/ThiagoLuizNunes/angular-boilerplate/master/src/assets/imgs/camera-white.png">
+                            </figcaption>
+                        </figure>
+                    </label>
+                </div>
+                <h2><%= tipoPessoa %></h2>
+                <br>
+                <div class="info-profile">
+                <div style="content: '';"></div>
+                    <div>
+                        <div class="info2">
+                            <h3>Razão Social:</h3><p><%= razaoSocial %></p>
+                        </div>
+                        <div class="info2">
+                            <h3>Nome Completo:</h3><p><%= username %></p>
+                        </div>
+                        <div class="info2">
+                            <h3>RG:</h3><p><%= rg %></p>
+                        </div>
+                        <div class="info2">
+                            <h3>CPF:</h3><p><%= cpf %></p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="info2">
+                            <h3>CNPJ:</h3><p><%= cnpj %></p>
+                        </div>
+                        <div class="info2">
+                            <h3>Data de Nascimento:</h3><p><%= datanascimento %></p>
+                        </div>
+                        <div class="info2">
+                            <h3>Celular:</h3><p><%= celular %></p>
+                        </div>
+                        <div class="info2">
+                            <h3>E-mail:</h3><p><%= email %></p>
+                        </div>
+                    </div>
+                </div>
+                <h2>Localização</h2>
+                <br>
+                <div class="info-profile">
+                    <div style="content: '';"></div>
+                    <div>
+                        <div class="info2">
+                            <h3>Endereço:</h3><p>Endereço</p>
+                        </div>
+                        <div class="info2">
+                            <h3>Número:</h3><p>Número</p>
+                        </div>
+                        <div class="info2">
+                            <h3>Complemento:</h3><p>-</p>
+                        </div>
+                        <div class="info2">
+                            <h3>Bairro:</h3><p>Bairro</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="info2">
+                            <h3>Cidade:</h3><p>Cidade</p>
+                        </div>
+                        <div class="info2">
+                            <h3>Estado:</h3><p>Estado</p>
+                        </div>
+                        <div class="info2">
+                            <h3>CEP:</h3><p>00000-000</p>
+                        </div>
+                        <div class="info2">
+                            <h3>País:</h3><p>País</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="/src/js/script.js"></script>
+    <!-- <script>
+        const inputFile = document.getElementById('fileFoto')
+        const picture = document.getElementById('imagemm')
+        const btn = document.getElementById('button')
+        inputFile.addEventListener('change', function(event) {
+            const inputTarget = event.target
+            const file = inputTarget.files[0]
+
+            if(file){
+                const reader = new FileReader();
+                
+                reader.addEventListener('load', (ev) => {
+                    const readerTarget = ev.target;
+                    picture.src = readerTarget.result
+                    
+                    const span = document.createElement('span')
+                    const botao = document.createElement('button')
+
+                    if(btn.childElementCount != 0){
+                        document.removeChild(span)
+                    }
+
+                    btn.appendChild(span)
+
+                    span.textContent = 'ENVIAR'
+
+                    span.classList.add('button')
+                    span.appendChild(botao)
+                })
+
+                reader.readAsDataURL(file)
+            }
+
+        })
+        
+    </script> -->
+</body>
+</html>
